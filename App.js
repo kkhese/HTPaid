@@ -1,81 +1,31 @@
-import React, {useRef, useEffect} from 'react';
-import {
-  ImageBackground, Animated, View, Image, StyleSheet, Text, Button, TouchableOpacity, Dimensions
-} from 'react-native';
+import React, {useRef, useEffect, useState} from 'react';
+import { Animated, View, Image, StyleSheet, Text, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './components/HomeScreen';
+import Tutorial from './components/Tutorial';
+import House from './components/House';
+import Tree from './components/Tree';
+import Person from './components/Person';
 
-const App = () => {
-  const action = () => {
+const Stack = createNativeStackNavigator();
 
-  };
+//function DetailsScreen({navigation}){
+//  return
+//}
+  //       <Stack.Screen name="MoreDetails" component = {DetailsScreen2} />
 
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={[styles.backImage]}
-        source={require('./assets/HTP.png')}
-        >
-        <Image
-          style={[styles.titleLogo]}
-          source={require('./assets/House.png')}
-        />
-        <Image
-          style={[styles.titleLogo, {marginLeft: 40}]}
-          source={require('./assets/Tree.png')}
-        />
-        <Image
-          style={[styles.titleLogo, {marginLeft: 50}]}
-          source={require('./assets/Person.png')}
-        />
-      </ImageBackground>
-      <View style={[{height: '10%'}]}>
-        <TouchableOpacity style={
-          [{justifyContent:'center'},{alignItems: 'center', height: '80%', backgroundColor:'yellow'}]
-        }>
-          <Text style={[{justifyContent:'center'},{color: 'orange'}, 
-                        {fontSize: Dimensions.get('window').width > 350? 25 : 15},
-                        {fontWeight: "bold"}]}>Click To Start
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+function App() {
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component = {HomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Tutorial" component = {Tutorial} />
+        <Stack.Screen name="House" component = {House} />
+        <Stack.Screen name="Tree" component = {Tree} />
+        <Stack.Screen name="Person" component = {Person} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  titleLogo: {
-    flex: 0.15,
-    width: '65%',
-    resizeMode: "contain",
-    marginLeft: 20,
-    opacity: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  titleLogo2: {
-    flex: 0.15,
-    width: '65%',
-    resizeMode: "contain",
-    marginLeft: 30,
-    opacity: 1
-  },
-  titleLogo3: {
-    flex: 0.15,
-    width: '65%',
-    resizeMode: "contain",
-    marginLeft: 40,
-    opacity: 1
-  },
-  backImage: {
-    flex: 0.75,
-    marginTop: '25%',
-    justifyContent: 'center',
-    resizeMode: "contain",
-    width: '100%',
-    opacity: 1
-  },
-});
 export default App;
