@@ -7,14 +7,21 @@ import {
 
 function HomeScreen({navigation}){
   const [imgRep, setimgRep] = useState(1);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const box1x = useRef(new Animated.Value(0)).current;
   const moveOut = () => {
     Animated.timing(box1x, {
-      toValue: 2000,
+      toValue: 1000,
       duration: 2000,
       useNativeDriver: true
     }).start()
   }
+  const fadeIn = () => {
+    Animated.timing(fadeAnim,{
+      toValue:1,
+      duration: 4000
+    }).start();
+  };
 
   return (
     <View style={[styles.container, {opacity: imgRep}]}>
@@ -27,14 +34,14 @@ function HomeScreen({navigation}){
           {fontSize: Dimensions.get('window').width > 350? 32 : 20},
           {color: 'darkgreen', fontFamily:'serif', fontWeight: 'bold'},
         ]}>
-          HTP Diagnosis
+          HTP Diagnosis Aid
         </Text>
         <Text style={[
           {fontSize: Dimensions.get('window').width > 350? 26 : 15},
           {color: 'darkred', fontFamily: 'Roboto', fontWeight: 'bold'}
-        ]}>                     Aid App</Text>
+        ]}>                     App ver. Beta</Text>
       </View>
-      <ImageBackground
+      <ImageBackground onLoad={fadeIn}
         style={[styles.backImage]}
         source={require('../assets/HTP.png')}
         >
@@ -43,16 +50,16 @@ function HomeScreen({navigation}){
           width: 300,
           height: 400
         }}>
-        <Image
-          style={[styles.titleLogo]}
+        <Animated.Image
+          style={[styles.titleLogo, {opacity:fadeAnim}]}
           source={require('../assets/House.png')}
         />
-        <Image
-          style={[styles.titleLogo, {marginLeft: 40}]}
+        <Animated.Image
+          style={[styles.titleLogo, {opacity:fadeAnim}, {marginLeft: 40}]}
           source={require('../assets/Tree.png')}
         />
-        <Image
-          style={[styles.titleLogo, {marginLeft: 60}]}
+        <Animated.Image
+          style={[styles.titleLogo, {opacity:fadeAnim}, {marginLeft: 60}]}
           source={require('../assets/Person.png')}
         />
         </Animated.View>
@@ -60,7 +67,7 @@ function HomeScreen({navigation}){
       <View style={[{height: '10%'},{justifyContent:'center'}]}>
         <TouchableOpacity style={
           [{justifyContent:'center'},{alignItems: 'center', height: '100%', backgroundColor:'white'}]
-        } onPress= {() => [moveOut,  navigation.push('House')]}>
+        } onPress= {() => [moveOut,  navigation.push('Tree')]}>
           <Text style={[{justifyContent:'center'},{color: 'orange'}, 
                         {fontSize: Dimensions.get('window').width > 350? 25 : 15},
                         {fontWeight: "bold"}]}>Continue to Use HTP App
@@ -82,26 +89,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginLeft: 20,
     opacity: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center'
   },
-  titleLogo2: {
-    flex: 0.15,
-    width: '65%',
-    resizeMode: "contain",
-    marginLeft: 30,
-    opacity: 1
-  },
-  titleLogo3: {
-    flex: 0.15,
-    width: '65%',
-    resizeMode: "contain",
-    marginLeft: 40,
-    opacity: 1
-  },
   backImage: {
-    flex: 0.75,
-    marginTop: '25%',
+    flex: 1,
+//    marginTop: '10%',
     justifyContent: 'center',
     resizeMode: "contain",
     width: '100%',

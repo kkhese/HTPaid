@@ -1,10 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {ImageBackground, View, StyleSheet, Text, Button, Image, Animated, StatusBar, FlatList} from 'react-native';
+import {ImageBackground, View, StyleSheet, Text, Button, Image, Animated} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-
-
-
-//const Separator = () => <View style={styles.itemSeparator} />;
 
 const leftSwipeActions = () => {
   return (
@@ -27,11 +23,7 @@ const leftSwipeActions = () => {
 const rightSwipeActions = () => {
   return (
     <View
-      style={{
-        backgroundColor: '#ff8303',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-      }}
+      style={{ flex:1, backgroundColor: '#ff8303', justifyContent: 'center' }}
     >
       <Text
         style={{
@@ -39,6 +31,7 @@ const rightSwipeActions = () => {
           color: '#1b1a17',
           paddingHorizontal: 10,
           paddingVertical: 20,
+          textAlign: 'right'
         }}
       >
         Tree
@@ -46,12 +39,6 @@ const rightSwipeActions = () => {
     </View>
   );
 };
-
-const swipeFromRightOpen = () => {
-  alert('Swipe from right');
-};
-
-
 
 function House({navigation}){
 //  const fadecon = useRef(new Animated.Value(0)).current;
@@ -65,45 +52,45 @@ function House({navigation}){
   return(
     <View style={[styles.container]}>
       <View style={[styles.container]}>
-        <View style={[styles.container2, {alignItems: 'flex-start'}, {backgroundColor:'#9999ff50'}]}>
+        <View style={[styles.container1, {alignItems: 'flex-start'}, {backgroundColor:'#9999ff50'}]}>
           <Image 
               source={require('../assets/HousePart1.png')}
-              style={[{marginTop: 0}, {maxWidth: '43.5%'}, {resizeMode: 'contain'}]} 
+              style={[{marginTop: -20}, {maxWidth: '43%'}, {resizeMode: 'contain'}]} 
           />
           <Image 
               source={require('../assets/HousePart2.png')}
-              style={[{marginRight: 0}, {maxWidth: '45%'}, {resizeMode: 'contain'}]} 
+              style={[{marginTop: -21.5}, {maxWidth: '46%'}, {resizeMode: 'contain'}]} 
           />
         </View>
       </View>
 
       <View style={[styles.container]}>
-        <View style={[styles.container2, {alignItems: 'flex-end'}, {backgroundColor:'#FF8844f0'}]}>
+        <View style={[styles.container1, {alignItems: 'flex-end'}]}>
           <Image 
               source={require('../assets/HousePart3.png')}
-              style={[{marginBottom: 8}, {marginLeft: 2},{maxWidth: '22%'}, {resizeMode: 'contain'}]} 
+              style={[{marginBottom: -50}, {marginLeft: -2},{maxWidth: '22.2%'}, {resizeMode: 'contain'}]} 
           />
           <Image 
               source={require('../assets/HousePart4.png')}
-              style={[{marginBottom: 8}, {marginLeft: 0}, {maxWidth: '20.9%'}, {resizeMode: 'contain'}]} 
+              style={[{marginBottom: -50.5}, {marginLeft: 0}, {maxWidth: '21%'}, {resizeMode: 'contain'}]} 
           />
           <Image 
               source={require('../assets/HousePart5.png')}
-              style={[{marginBottom: 9}, {maxWidth: '24%'}, {resizeMode: 'contain'}]} 
+              style={[{marginBottom: -49.9}, {maxWidth: '24.1%'}, {resizeMode: 'contain'}]} 
           />
           <Image 
               source={require('../assets/HousePart6.png')}
-              style={[{marginBottom: 9}, {maxWidth: '21.6%'}, {resizeMode: 'contain'}]} 
+              style={[{marginBottom: -50.5}, {maxWidth: '21.6%'}, {resizeMode: 'contain'}]} 
           />
         </View>
       </View>
-      <View>
-        
+      
+      <View style={[styles.container2]}>
         <Swipeable
           renderLeftActions={leftSwipeActions}
           renderRightActions={rightSwipeActions}
-          onSwipeableRightOpen={()=>alert('Swipe from right')}
-          onSwipeableLeftOpen={()=>navigation.push('Tutorial')}
+          onSwipeableRightOpen={()=>navigation.navigate('Tree')}
+          onSwipeableLeftOpen={()=>navigation.navigate('Person')}
         >
           <View
             style={{
@@ -112,7 +99,7 @@ function House({navigation}){
               backgroundColor: 'white',
             }}
           >
-            <Text style={{ fontSize: 24 }}>
+            <Text style={{ fontSize: 24, textAlign: 'center' }}>
               Switch Main Category
             </Text>
           </View>
@@ -128,13 +115,12 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-    flexDirection: 'row'
-  },
-  container2: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center'
   },
+  container2: {
+    justifyContent: 'flex-end'
+  }
 });
 
 export default House;
