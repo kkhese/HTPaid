@@ -9,18 +9,29 @@ function HomeScreen({navigation}){
   const [imgRep, setimgRep] = useState(1);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const box1x = useRef(new Animated.Value(0)).current;
+  const box2x = useRef(new Animated.Value(0)).current;
+
   const moveOut = () => {
     Animated.timing(box1x, {
       toValue: 1000,
-      duration: 2000,
-      useNativeDriver: true
+      duration: 1500,
+//      useNativeDriver: true
+    }).start()
+    Animated.timing(box2x, {
+      toValue: -2000,
+      duration: 1200,
+//      useNativeDriver: true
     }).start()
   }
   const fadeIn = () => {
     Animated.timing(fadeAnim,{
       toValue:1,
-      duration: 4000
+      duration: 1500
     }).start();
+  };
+
+  const runDelay=()=>{
+    setTimeout(()=>{navigation.push('Tree')},1000)
   };
 
   return (
@@ -31,7 +42,7 @@ function HomeScreen({navigation}){
         {marginTop:'15%'}
         ]}>
         <Text style={[
-          {fontSize: Dimensions.get('window').width > 350? 32 : 20},
+          {fontSize: Dimensions.get('window').width > 350? 30 : 20},
           {color: 'darkgreen', fontFamily:'serif', fontWeight: 'bold'},
         ]}>
           HTP Diagnosis Aid
@@ -51,11 +62,11 @@ function HomeScreen({navigation}){
           height: 400
         }}>
         <Animated.Image
-          style={[styles.titleLogo, {opacity:fadeAnim}]}
+          style={[styles.titleLogo, {opacity:fadeAnim}, {transform: [{translateX: box1x}],}]}
           source={require('../assets/House.png')}
         />
         <Animated.Image
-          style={[styles.titleLogo, {opacity:fadeAnim}, {marginLeft: 40}]}
+          style={[styles.titleLogo, {opacity:fadeAnim}, {transform: [{translateX: box2x}]}, {marginLeft: 40}]}
           source={require('../assets/Tree.png')}
         />
         <Animated.Image
@@ -65,9 +76,9 @@ function HomeScreen({navigation}){
         </Animated.View>
       </ImageBackground>
       <View style={[{height: '10%'},{justifyContent:'center'}]}>
-        <TouchableOpacity style={
-          [{justifyContent:'center'},{alignItems: 'center', height: '100%', backgroundColor:'white'}]
-        } onPress= {() => [moveOut,  navigation.push('Tree')]}>
+        <TouchableOpacity 
+          style={[{justifyContent:'center'},{alignItems: 'center', height: '100%', backgroundColor:'white'}]} 
+          onPress= {()=> [moveOut(), runDelay()]}>
           <Text style={[{justifyContent:'center'},{color: 'orange'}, 
                         {fontSize: Dimensions.get('window').width > 350? 25 : 15},
                         {fontWeight: "bold"}]}>Continue to Use HTP App
@@ -80,6 +91,7 @@ function HomeScreen({navigation}){
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: '20%',
     flex: 1,
     justifyContent: 'center'
   },
@@ -94,10 +106,10 @@ const styles = StyleSheet.create({
   },
   backImage: {
     flex: 1,
-//    marginTop: '10%',
+    marginTop: '15%',
     justifyContent: 'center',
     resizeMode: "contain",
-    width: '100%',
+    maxWidth: '100%',
     opacity: 1
   },
 });
